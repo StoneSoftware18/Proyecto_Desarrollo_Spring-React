@@ -1,0 +1,42 @@
+use futbol;
+
+DROP TABLE IF EXISTS `posicion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `posicion` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `posicion` varchar(45) DEFAULT NULL,
+  `estado` bit(1) DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+
+LOCK TABLES `posicion` WRITE;
+INSERT INTO `posicion` VALUES (1,'Arquero',_binary ''),(2,'Defensa',_binary ''),(3,'Mediocampista',_binary '');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `futbolista`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `futbolista` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombres` varchar(150) DEFAULT NULL,
+  `apellidos` varchar(150) DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `caracteristicas` varchar(250) DEFAULT NULL,
+  `posicion_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_futbolista_posicion_idx` (`posicion_id`),
+  CONSTRAINT `fk_futbolista_posicion` FOREIGN KEY (`posicion_id`) REFERENCES `posicion` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+
+LOCK TABLES `futbolista` WRITE;
+
+INSERT INTO `futbolista` VALUES (1,'JEAN ','VASQUETS','1989-01-01','Mediocampo central',3);
+INSERT INTO `futbolista` VALUES (2,'JORGE ','CASTELLANOS','1989-07-09','Defensa',2);
+
+UNLOCK TABLES;
